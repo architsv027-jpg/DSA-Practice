@@ -1,1 +1,54 @@
 
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+
+        int n = nums.size();
+
+        // i points to the position where the next 0 should be placed
+        int i = 0;
+
+        // j is the current element we are checking
+        int j = 0;
+
+        // k points to the position where the next 2 should be placed
+        int k = n - 1;
+
+        // Process the array until j crosses k
+        while (j <= k) {
+
+            // If the current element is 1,
+            // it is already in the correct middle section
+            if (nums[j] == 1)
+            {
+                j++;
+            }
+
+            // If the current element is 2,
+            // swap it with the element at the end
+            else if (nums[j] == 2)
+            {
+                swap(nums[j], nums[k]);
+                k--;
+
+                // Do not increment j here because the swapped
+                // element at nums[j] still needs to be checked
+            }
+
+            // If the current element is 0,
+            // move it to the beginning of the array
+            else
+            {
+                swap(nums[j], nums[i]);
+                i++;
+                j++;
+            }
+        }
+
+        return;
+    }
+};
+
+// Approach: Dutch National Flag Algorithm
+// Time Complexity: O(n)
+// Space Complexity: O(1)
