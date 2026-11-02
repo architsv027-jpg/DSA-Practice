@@ -1,1 +1,51 @@
 
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+
+        int n = height.size();
+
+        // Arrays to store maximum height from left and right
+        vector<int> lmax(n, 0);
+        vector<int> rmax(n, 0);
+
+        // Stores the total amount of trapped rainwater
+        int ans = 0;
+
+        // Initialize the first element of left maximum array
+        lmax[0] = height[0];
+
+        // Initialize the last element of right maximum array
+        rmax[n-1] = height[n-1];
+
+        // Calculate the maximum height from the left side
+        for(int i = 1; i < n; i++) {
+
+            lmax[i] = max(lmax[i-1], height[i]);
+
+        }
+
+        // Calculate the maximum height from the right side
+        for(int i = n-2; i >= 0; i--) {
+
+            rmax[i] = max(rmax[i+1], height[i]);
+
+        }
+
+        // Calculate trapped water at each index
+        for(int i = 0; i < n; i++) {
+
+            // Water trapped = Minimum of left and right maximum - Current height
+            ans += min(rmax[i], lmax[i]) - height[i];
+
+        }
+
+        // Return the total trapped rainwater
+        return ans;
+
+    }
+};
+
+// Time Complexity: O(n)
+// Space Complexity: O(n)
